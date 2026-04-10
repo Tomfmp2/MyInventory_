@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,7 +17,13 @@ public class ProductEntityConfiguration : IEntityTypeConfiguration<ProductEntity
 
         builder.Property(x => x.CodeInv)
             .HasColumnName("code_inv")
-            .HasMaxLength(100);
+            .HasMaxLength(100)
+            .IsRequired(false);
+
+        builder.Property(x => x.NameProduct)
+            .HasColumnName("name_product")
+            .HasMaxLength(50)
+            .IsRequired();
 
         builder.Property(x => x.stok)
             .HasColumnName("stok")

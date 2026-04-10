@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using MyInventory2026.src.modules.provider.Infrastructure.entity;
 using MyInventory2026.src.modules.Products.Infrastructure.Entity;
@@ -9,6 +8,7 @@ public class AppDbContext : DbContext
 {
     public DbSet<ProviderEntity> Providers => Set<ProviderEntity>();
     public DbSet<ProductEntity> Products => Set<ProductEntity>();
+    public DbSet<ProviderProductEntity> ProviderProducts => Set<ProviderProductEntity>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

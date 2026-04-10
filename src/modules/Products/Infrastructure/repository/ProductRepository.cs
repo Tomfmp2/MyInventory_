@@ -21,7 +21,7 @@ public sealed class ProductRepository : IProductRepository
         var entity = new ProductEntity
         {
             id = product.Id.Value,
-            CodeInv = product.Name.Value // Assuming CodeInv is the name field, adjust if needed
+            NameProduct = product.Name.Value
         };
 
         await _dbContext.Products.AddAsync(entity, cancellationToken);
@@ -33,17 +33,17 @@ public sealed class ProductRepository : IProductRepository
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.id == id.Value, cancellationToken);
 
-        return entity is null ? null : Product.Create(entity.id, entity.CodeInv ?? "");
+        return entity is null ? null : Product.Create(entity.id, entity.NameProduct);
     }
 
     public async Task<IReadOnlyCollection<Product>> FindAllAsync(CancellationToken cancellationToken = default)
     {
         var entities = await _dbContext.Products
             .AsNoTracking()
-            .OrderBy(x => x.CodeInv)
+            .OrderBy(x => x.NameProduct)
             .ToListAsync(cancellationToken);
 
-        return entities.Select(x => Product.Create(x.id, x.CodeInv ?? "")).ToList();
+        return entities.Select(x => Product.Create(x.id, x.NameProduct)).ToList();
     }
 
     public async Task UpdateAsync(Product product, CancellationToken cancellationToken = default)
@@ -56,7 +56,7 @@ public sealed class ProductRepository : IProductRepository
             throw new KeyNotFoundException($"Product with id '{product.Id.Value}' was not found.");
         }
 
-        entity.CodeInv = product.Name.Value;
+        entity.NameProduct = product.Name.Value;
     }
 
     public async Task<bool> DeleteByIdAsync(ProductId id, CancellationToken cancellationToken = default)

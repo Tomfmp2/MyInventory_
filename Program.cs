@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using MyInventory2026.src.modules.provider.Application.Interfaces;
 using MyInventory2026.src.modules.provider.Application.Services;
 using MyInventory2026.src.modules.provider.Infrastructure.repository;
@@ -13,6 +14,8 @@ using MyInventory2026.src.shared.ui;
 try
 {
     var context = DbContextFactory.Create();
+    context.Database.Migrate();
+
     var providerRepository = new ProviderRepository(context);
     var unitOfWork = new UnitOfWork(context);
     IProviderService providerService = new ProviderService(providerRepository, unitOfWork);

@@ -38,6 +38,56 @@ namespace MyInventory2026.Migrations
 
                     b.ToTable("providers", (string)null);
                 });
+
+            modelBuilder.Entity("MyInventory2026.src.modules.Products.Infrastructure.Entity.ProductEntity", b =>
+                {
+                    b.Property<int>("id")
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<string>("CodeInv")
+                        .HasColumnType("varchar(100)")
+                        .HasColumnName("code_inv");
+
+                    b.Property<string>("NameProduct")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("name_product");
+
+                    b.Property<int>("stok")
+                        .HasColumnType("int")
+                        .HasColumnName("stok");
+
+                    b.Property<int>("stokMax")
+                        .HasColumnType("int")
+                        .HasColumnName("stok_max");
+
+                    b.Property<int>("stokMin")
+                        .HasColumnType("int")
+                        .HasColumnName("stok_min");
+
+                    b.HasKey("id");
+
+                    b.ToTable("products", (string)null);
+                });
+
+            modelBuilder.Entity("MyInventory2026.src.modules.provider.Infrastructure.entity.ProviderProductEntity", b =>
+                {
+                    b.Property<string>("ProviderId")
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)")
+                        .HasColumnName("provider_id");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int")
+                        .HasColumnName("product_id");
+
+                    b.HasKey("ProviderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("provider_products", (string)null);
+                });
 #pragma warning restore 612, 618
         }
     }
